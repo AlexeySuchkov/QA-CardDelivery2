@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
 import java.util.Locale;
 
 public class DataGenerator {
@@ -25,11 +26,16 @@ public class DataGenerator {
 
     public String createName() {
         faker = new Faker(new Locale("ru"));
-        return faker.name().fullName();
+        return faker.name().name();
     }
 
-    public String createPhone() {
+    public String createFalsePhone() {
+        String falsePhone = "+";
+        return falsePhone;
+    }
+
+    public String createCellPhone() {
         faker = new Faker(new Locale("ru"));
-        return faker.phoneNumber().phoneNumber();
+        return faker.phoneNumber().cellPhone();
     }
 }

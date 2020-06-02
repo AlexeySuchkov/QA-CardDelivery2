@@ -19,13 +19,28 @@ public class CardDeliveryTests {
     }
 
     @Test
-    void SubmitRequest() {
-
+    void submitRequest() {
 
         $("[placeholder='Город']").setValue(dataGenerator.createCity());
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(3));
         $("[name=name]").setValue(dataGenerator.createName());
-        $("[name=phone]").setValue(dataGenerator.createPhone());
+        $("[name=phone]").setValue(dataGenerator.createCellPhone());
+        $(".checkbox__box").click();
+        $(".button__text").click();
+        $(withText("Успешно")).shouldBe(visible);
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(4));
+        $(".button__text").click();
+        $(withText("У вас уже запланирована встреча на другую дату. Перепланировать?")).shouldBe(visible);
+        $("[data-test-id=replan-notification] button.button").click();
+        $(withText("Успешно")).shouldBe(visible);
+    }
+    @Test
+    void submitFalsePhoneRequest() {
+
+        $("[placeholder='Город']").setValue(dataGenerator.createCity());
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(3));
+        $("[name=name]").setValue(dataGenerator.createName());
+        $("[name=phone]").setValue(dataGenerator.createFalsePhone());
         $(".checkbox__box").click();
         $(".button__text").click();
         $(withText("Успешно")).shouldBe(visible);
@@ -37,49 +52,49 @@ public class CardDeliveryTests {
     }
 
     @Test
-    void SubmitWithoutCity() {
+    void submitWithoutCity() {
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(3));
         $("[name=name]").setValue(dataGenerator.createName());
-        $("[name=phone]").setValue(dataGenerator.createPhone());
+        $("[name=phone]").setValue(dataGenerator.createCellPhone());
         $(".checkbox__box").click();
         $(".button__text").click();
         $(".input_theme_alfa-on-white.input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
     }
 
     @Test
-    void SubmitWithFalseCity() {
+    void submitWithFalseCity() {
         $("[placeholder='Город']").setValue("Вена");
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(3));
         $("[name=name]").setValue(dataGenerator.createName());
-        $("[name=phone]").setValue(dataGenerator.createPhone());
+        $("[name=phone]").setValue(dataGenerator.createCellPhone());
         $(".checkbox__box").click();
         $(".button__text").click();
         $(".input_theme_alfa-on-white.input_invalid .input__sub").shouldHave(exactText("Доставка в выбранный город недоступна"));
     }
 
     @Test
-    void SubmitWithoutName() {
+    void submitWithoutName() {
         $("[placeholder='Город']").setValue(dataGenerator.createCity());
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(3));
-        $("[name=phone]").setValue(dataGenerator.createPhone());
+        $("[name=phone]").setValue(dataGenerator.createCellPhone());
         $(".checkbox__box").click();
         $(".button__text").click();
         $(".input_theme_alfa-on-white.input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
     }
 
     @Test
-    void SumbitWithNameInLatin() {
+    void submitWithNameInLatin() {
         $("[placeholder='Город']").setValue(dataGenerator.createCity());
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(3));
         $("[name=name]").setValue("Petrov Ivan");
-        $("[name=phone]").setValue(dataGenerator.createPhone());
+        $("[name=phone]").setValue(dataGenerator.createCellPhone());
         $(".checkbox__box").click();
         $(".button__text").click();
         $(".input_theme_alfa-on-white.input_invalid .input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
 
     @Test
-    void SubmitWithoutPhone() {
+    void submitWithoutPhone() {
         $("[placeholder='Город']").setValue(dataGenerator.createCity());
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(3));
         $("[name=name]").setValue(dataGenerator.createName());
@@ -89,11 +104,11 @@ public class CardDeliveryTests {
     }
 
     @Test
-    void SubmitWithoutCheckbox() {
+    void submitWithoutCheckbox() {
         $("[placeholder='Город']").setValue(dataGenerator.createCity());
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(3));
         $("[name=name]").setValue(dataGenerator.createName());
-        $("[name=phone]").setValue(dataGenerator.createPhone());
+        $("[name=phone]").setValue(dataGenerator.createCellPhone());
         $(".button__text").click();
         $(".input_invalid").shouldHave(exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
     }
