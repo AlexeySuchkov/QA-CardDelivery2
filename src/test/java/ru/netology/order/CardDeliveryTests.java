@@ -34,6 +34,7 @@ public class CardDeliveryTests {
         $("[data-test-id=replan-notification] button.button").click();
         $(withText("Успешно")).shouldBe(visible);
     }
+
     @Test
     void submitFalsePhoneRequest() {
 
@@ -43,12 +44,7 @@ public class CardDeliveryTests {
         $("[name=phone]").setValue(dataGenerator.createFalsePhone());
         $(".checkbox__box").click();
         $(".button__text").click();
-        $(withText("Успешно")).shouldBe(visible);
-        $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(4));
-        $(".button__text").click();
-        $(withText("У вас уже запланирована встреча на другую дату. Перепланировать?")).shouldBe(visible);
-        $("[data-test-id=replan-notification] button.button").click();
-        $(withText("Успешно")).shouldBe(visible);
+        $(withText("Проверьте правильность введенного номера")).shouldBe(visible);
     }
 
     @Test
@@ -86,7 +82,7 @@ public class CardDeliveryTests {
     void submitWithNameInLatin() {
         $("[placeholder='Город']").setValue(dataGenerator.createCity());
         $("[placeholder='Дата встречи']").doubleClick().sendKeys(dataGenerator.forwardDate(3));
-        $("[name=name]").setValue("Petrov Ivan");
+        $("[name=name]").setValue(dataGenerator.createFalseName());
         $("[name=phone]").setValue(dataGenerator.createCellPhone());
         $(".checkbox__box").click();
         $(".button__text").click();

@@ -24,9 +24,14 @@ public class DataGenerator {
         return myCityList[city];
     }
 
+    public String createFalseName() {
+        String falseName = "Petrov Ivan";
+        return falseName;
+    }
+
     public String createName() {
         faker = new Faker(new Locale("ru"));
-        return faker.name().name();
+        return faker.name().lastName() + " " + faker.name().firstName();
     }
 
     public String createFalsePhone() {
